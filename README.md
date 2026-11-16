@@ -22,6 +22,7 @@ scripts/
 docs/
   architecture.md  Comment les pièces s'articulent
   decisions.md     Décisions prises et questions ouvertes
+brand/             Logo (SVG, PNG), icônes, vidéos, charte : voir brand/README.md
 ```
 
 ## État
@@ -32,6 +33,7 @@ docs/
 | Package partagé : jeton QR, numéros, erreurs | Fait, tests écrits |
 | Applications Flutter | Mode démo sur données fictives ; APK publiés automatiquement |
 | Connexion à Supabase depuis les applications | À faire |
+| Identité visuelle : logo, icônes, vidéos | Validée ; fichiers dans `brand/` |
 
 ## Démarrer
 

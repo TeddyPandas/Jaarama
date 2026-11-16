@@ -7,3 +7,4 @@
 - Le format du QR est défini deux fois : `private.qr_signature` (SQL) et `QrToken` (Dart). Les modifier ensemble et mettre à jour le vecteur de test commun.
 - Les erreurs métier sont des codes stables ; tout nouveau code est ajouté à `JaaramaError`.
 - Décisions et questions ouvertes : `docs/decisions.md`.
+- Identité visuelle dans `brand/` (lire `brand/README.md`) : ne jamais modifier le logo ni lui ajouter d'éléments ; la signature « La fidélité qui dit merci » ne fait pas partie du logo.

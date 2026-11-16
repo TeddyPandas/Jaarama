@@ -14,6 +14,8 @@
 | 2026-11-16 | Pas de points contre avis Google | Interdit par les règles de Google |
 | 2026-11-16 | Logo validé : le J aux mains qui se serrent, avec motif, cœur et étoiles ; version vectorielle retracée | Choix du porteur de projet |
 | 2026-11-16 | La signature « La fidélité qui dit merci » est retirée du logo et sera affichée dans l'application (écran d'accueil, à propos) | Logo plus compact ; la phrase reste visible dans l'usage |
+| 2026-11-16 | Vidéos de marque : début de l'animation générée (bol, J qui sort), puis fin sur le logo vectoriel exact | Aucun élément ajouté ni doublé par rapport au logo |
+| 2026-11-16 | Animation d'ouverture de l'application recréée en Flutter à partir des couches SVG, pas en vidéo | Plus légère, nette sur tous les écrans |
 
 ## Hypothèses retenues par défaut, en attente de validation
 

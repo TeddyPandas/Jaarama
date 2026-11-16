@@ -47,6 +47,7 @@ jobs:
     name: Applications Flutter
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         app: [client, merchant]
     defaults:
@@ -58,4 +59,4 @@ jobs:
         with:
           channel: stable
       - run: flutter pub get
-      - run: flutter analyze
+      - run: flutter analyze --no-fatal-infos

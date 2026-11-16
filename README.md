@@ -30,7 +30,7 @@ docs/
 | --- | --- |
 | Schéma, règles d'accès, crédit, échange, inscription par numéro | Fait, testé |
 | Package partagé : jeton QR, numéros, erreurs | Fait, tests écrits |
-| Applications Flutter | Squelettes : écrans d'accueil seulement |
+| Applications Flutter | Mode démo sur données fictives ; APK publiés automatiquement |
 | Connexion à Supabase depuis les applications | À faire |
 
 ## Démarrer
@@ -69,6 +69,10 @@ cd apps/merchant && flutter create --platforms=android,ios --org sn.jaarama .
 ```bash
 cd packages/jaarama_core && dart pub get && dart test
 ```
+
+## APK de démonstration
+
+À chaque modification des applications sur `main`, GitHub Actions compile les deux applications en mode démo (données fictives, sans serveur) et les dépose dans la Release [« demo »](https://github.com/TeddyPandas/jaarama/releases/tag/demo), remplacée à chaque fois. Compilation manuelle : onglet Actions, « APK de démonstration », « Run workflow ».
 
 ## Intégration continue
 

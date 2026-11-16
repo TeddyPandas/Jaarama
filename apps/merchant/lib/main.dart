@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 
+import 'demo/demo_store.dart';
+import 'screens/counter_screen.dart';
+import 'screens/customers_screen.dart';
+import 'screens/rewards_screen.dart';
+
 void main() => runApp(const JaaramaMerchantApp());
 
+const brandGreen = Color(0xFF0B6E4F);
+
+/// État partagé du mode démo.
+final store = DemoStore();
+
 /// Application marchand : caissier (scan, crédit, échange) et gérant
-/// (récompenses, équipe, clients).
-///
-/// Écrans prévus (voir docs/architecture.md) :
-/// connexion → choix du restaurant → scan → confirmation ; espace gérant.
+/// (clients, récompenses). Version de démonstration, sans serveur.
 class JaaramaMerchantApp extends StatelessWidget {
   const JaaramaMerchantApp({super.key});
 
@@ -14,36 +21,53 @@ class JaaramaMerchantApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Jaarama Pro',
-      theme: ThemeData(colorSchemeSeed: const Color(0xFF0B6E4F)),
-      home: const ScanScreen(),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(colorSchemeSeed: brandGreen),
+      home: const MerchantShell(),
     );
   }
 }
 
-class ScanScreen extends StatelessWidget {
-  const ScanScreen({super.key});
+class MerchantShell extends StatefulWidget {
+  const MerchantShell({super.key});
+
+  @override
+  State<MerchantShell> createState() => _MerchantShellState();
+}
+
+class _MerchantShellState extends State<MerchantShell> {
+  int tab = 0;
 
   @override
   Widget build(BuildContext context) {
+    final pages = [
+      CounterScreen(store: store),
+      CustomersScreen(store: store),
+      RewardsScreen(store: store),
+    ];
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Créditer un client')),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            FilledButton.icon(
-              onPressed: null,
-              icon: const Icon(Icons.qr_code_scanner),
-              label: const Text('Scanner le QR du client'),
-            ),
-            const SizedBox(height: 16),
-            OutlinedButton.icon(
-              onPressed: null,
-              icon: const Icon(Icons.phone),
-              label: const Text('Saisir son numéro'),
-            ),
-          ],
-        ),
+      body: pages[tab],
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: tab,
+        onDestinationSelected: (i) => setState(() => tab = i),
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.point_of_sale_outlined),
+            selectedIcon: Icon(Icons.point_of_sale),
+            label: 'Comptoir',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.people_outline),
+            selectedIcon: Icon(Icons.people),
+            label: 'Clients',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.redeem_outlined),
+            selectedIcon: Icon(Icons.redeem),
+            label: 'Récompenses',
+          ),
+        ],
       ),
     );
   }

@@ -1,0 +1,77 @@
+name: APK de démonstration
+
+# Compile les deux applications en mode démo et dépose les APK dans la
+# Release « demo », remplacée à chaque compilation. Les fichiers d'une
+# Release ne comptent pas dans le stockage d'Actions.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/**'
+      - 'packages/**'
+      - '.github/workflows/demo-apk.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: demo-apk
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Compiler et publier les APK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Générer les dossiers Android
+        run: |
+          set -e
+          for app in client merchant; do
+            (cd apps/$app && flutter create --platforms=android --org sn.jaarama --project-name jaarama_$app . && rm -f test/widget_test.dart)
+          done
+          sed -i 's/android:label="jaarama_client"/android:label="Jaarama"/' apps/client/android/app/src/main/AndroidManifest.xml
+          sed -i 's/android:label="jaarama_merchant"/android:label="Jaarama Pro"/' apps/merchant/android/app/src/main/AndroidManifest.xml
+
+      - name: Compiler
+        run: |
+          set -e
+          mkdir -p dist
+          for app in client merchant; do
+            (cd apps/$app && flutter pub get && flutter build apk --release)
+            cp apps/$app/build/app/outputs/flutter-apk/app-release.apk dist/jaarama-$app-demo.apk
+          done
+          ls -lh dist
+
+      - name: Publier dans la Release « demo »
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          gh release delete demo --yes --cleanup-tag || true
+          gh release create demo dist/*.apk \
+            --target "$GITHUB_SHA" \
+            --prerelease \
+            --title "Démo Jaarama" \
+            --notes "Version de démonstration, données fictives, aucune connexion au serveur.
+
+          - **jaarama-client-demo.apk** : application client (portefeuille, QR, récompenses)
+          - **jaarama-merchant-demo.apk** : application marchand (comptoir, clients, récompenses)
+
+          Installation : télécharger l'APK sur le téléphone Android, l'ouvrir, autoriser l'installation depuis cette source.
+          Chaque compilation est signée avec une clé différente : désinstaller l'ancienne version avant d'installer la nouvelle.
+
+          Compilé depuis le commit ${GITHUB_SHA::7}."

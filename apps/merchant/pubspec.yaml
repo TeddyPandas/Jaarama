@@ -1,5 +1,5 @@
 name: jaarama_merchant
-description: Application marchand Jaarama : scan, crédit et gestion du restaurant.
+description: "Application marchand Jaarama : scan, crédit et gestion du restaurant."
 publish_to: none
 version: 0.1.0+1
 

@@ -12,6 +12,8 @@
 | 2026-11-16 | Registre en ajout seul, solde calculé | Traçabilité complète, corrections visibles |
 | 2026-11-16 | Un QR par client, valable dans tous les restaurants | Un seul écran à montrer ; la carte est créée au premier scan |
 | 2026-11-16 | Pas de points contre avis Google | Interdit par les règles de Google |
+| 2026-11-16 | Logo validé : le J aux mains qui se serrent, avec motif, cœur et étoiles ; version vectorielle retracée | Choix du porteur de projet |
+| 2026-11-16 | La signature « La fidélité qui dit merci » est retirée du logo et sera affichée dans l'application (écran d'accueil, à propos) | Logo plus compact ; la phrase reste visible dans l'usage |
 
 ## Hypothèses retenues par défaut, en attente de validation
 
